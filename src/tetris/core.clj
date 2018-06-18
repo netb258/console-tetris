@@ -9,7 +9,7 @@
   (:gen-class))
 
 ;; -------------------------------------------------------------------------------------------
-;; ------------------------------- GLOBALS AND HELPER FUNCTIONS ------------------------------
+;; ----------------------------------------- GLOBALS -----------------------------------------
 ;; -------------------------------------------------------------------------------------------
 
 ;; The player's score.
@@ -34,6 +34,10 @@
 (def NEXT-PIECE
   (repeatedly
     #(first (shuffle ["I" "O" "Z" "S" "J" "L" "T"]))))
+
+;; -------------------------------------------------------------------------------------------
+;; ------------------------------------- HELPER FUNCTIONS ------------------------------------
+;; -------------------------------------------------------------------------------------------
 
 (defn clear-playfield!
   "Contract: nil -> nil"
@@ -87,21 +91,6 @@
       (= :enter input-key) (do (restart-game!) (game-loop))
       :else (recur))))
 
-(defn read-input
-  "Contract: nil -> nil"
-  []
-  (let [user-input (gui/get-key)]
-    (cond
-      (= :left user-input)   (mv/move-left! MATRIX ACTIVE-PIECE)
-      (= :right user-input)  (mv/move-right! MATRIX ACTIVE-PIECE)
-      (= :down user-input)   (mv/move-down! MATRIX ACTIVE-PIECE)
-      (= :up user-input)     (mv/hard-drop! MATRIX ACTIVE-PIECE)
-      (= :escape user-input) (quit-game!)
-      (= :enter user-input)  (gui/show-pause-screen! @SCORE @CLEARED-LINES)
-      (= \p user-input)      (gui/show-pause-screen!)
-      (= \z user-input)      (r/rotate-left! MATRIX ACTIVE-PIECE)
-      (= \x user-input)      (r/rotate-right! MATRIX ACTIVE-PIECE))))
-
 (defn get-game-speed "Contract: nil -> int" []
   (cond
     (> @CLEARED-LINES 100) 60
@@ -126,6 +115,21 @@
 ;; -------------------------------------------------------------------------------------------
 ;; ---------------------------------------- GAME LOOP ----------------------------------------
 ;; -------------------------------------------------------------------------------------------
+
+(defn read-input
+  "Contract: nil -> nil"
+  []
+  (let [user-input (gui/get-key)]
+    (cond
+      (= :left user-input)   (mv/move-left! MATRIX ACTIVE-PIECE)
+      (= :right user-input)  (mv/move-right! MATRIX ACTIVE-PIECE)
+      (= :down user-input)   (mv/move-down! MATRIX ACTIVE-PIECE)
+      (= :up user-input)     (mv/hard-drop! MATRIX ACTIVE-PIECE)
+      (= :escape user-input) (quit-game!)
+      (= :enter user-input)  (gui/show-pause-screen! @SCORE @CLEARED-LINES)
+      (= \p user-input)      (gui/show-pause-screen!)
+      (= \z user-input)      (r/rotate-left! MATRIX ACTIVE-PIECE)
+      (= \x user-input)      (r/rotate-right! MATRIX ACTIVE-PIECE))))
 
 (defn step!
   "Contract: nil -> nil
@@ -161,4 +165,4 @@
   (gui/set-title! "TETRIS")
   (gui/show-title-screen!)
   (clear-playfield!)
-  (game-loop)) 
+  (game-loop))
