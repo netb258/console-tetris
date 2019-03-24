@@ -14,7 +14,7 @@ Uses clojure-lanterna for rendering.
 
 By default the program is set to run in a swing based console (for portability).
 
-If you want to run it in the OS shell, then you will need to change src/gui.clj slightly.
+If you want to run it in the OS shell, then you will need to change src/tetris/gui.clj slightly.
 
 Notice that line 12 of gui.clj sets the WINDOW var with the :swing keyword.
 
