@@ -22,6 +22,8 @@ Just change that keyword to :unix if you are on a Unix OS.
 
 Under MS Windows only :cygwin is supported, so you will need to install Cygwin.
 
+In addition, you will also need to comment out lines 164 and 165 of src/tetris/core.clj.
+
 ## License
 
 Copyright © 2019 FIXME
