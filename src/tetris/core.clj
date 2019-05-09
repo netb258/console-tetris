@@ -127,7 +127,7 @@
       (= :up user-input)     (mv/hard-drop! MATRIX ACTIVE-PIECE)
       (= :escape user-input) (quit-game!)
       (= :enter user-input)  (gui/show-pause-screen! @SCORE @CLEARED-LINES)
-      (= \p user-input)      (gui/show-pause-screen!)
+      (= \p user-input)      (gui/show-pause-screen! @SCORE @CLEARED-LINES)
       (= \z user-input)      (r/rotate-left! MATRIX ACTIVE-PIECE)
       (= \x user-input)      (r/rotate-right! MATRIX ACTIVE-PIECE))))
 
