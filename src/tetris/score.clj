@@ -5,7 +5,7 @@
   "Contract: string -> vector
   Reads the players best score from a file"
   [fname]
-  (read-string (slurp fname)))
+  (clojure.edn/read-string (slurp fname)))
 
 (defn save-high-score
   "Contract: string int int -> nil
